@@ -1,0 +1,33 @@
+version: '3.3'
+
+services:
+  channel-server:
+    build: ./channel
+    image: msa/channel:0.0.1
+    ports:
+      - 9000:8000
+    container_name: msa-channel
+    networks:
+      - app-tier
+
+  product-server:
+    build: ./product
+    image: msa/product:0.0.1
+    ports:
+      - 9001:8000
+    container_name: msa-product
+    networks:
+      - app-tier
+
+  stock-server:
+    build: ./stock
+    image: msa/stock:0.0.1
+    ports:
+      - 9002:8000
+    container_name: msa-stock
+    networks:
+      - app-tier
+
+networks:
+  app-tier:
+    driver: bridge
