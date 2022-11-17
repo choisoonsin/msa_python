@@ -7,6 +7,8 @@ services:
     ports:
       - 9000:8000
     container_name: msa-channel
+    volumes:
+      - ./channel:/code
     networks:
       - app-tier
 
