@@ -18,6 +18,8 @@ services:
     ports:
       - 9001:8000
     container_name: msa-product
+    volumes:
+      - ./product:/code
     networks:
       - app-tier
 
@@ -27,6 +29,8 @@ services:
     ports:
       - 9002:8000
     container_name: msa-stock
+    volumes:
+      - ./stock:/code
     networks:
       - app-tier
 
