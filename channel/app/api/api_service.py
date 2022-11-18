@@ -10,7 +10,11 @@ class ProductApi(CommonApi):
 
   def __init__(self):
     pass
-    
+
+  def read_item(self, item_id: str) -> dict:
+    res = requests.get(self.product_server + f"/id/{item_id}", timeout=3)
+    return res
+
   def read_items_by_category(self, category_id: str) -> dict:
-    result = requests.get(self.product_server + f"/category/{category_id}", timeout=3)
-    return result
+    res = requests.get(self.product_server + f"/category/{category_id}", timeout=3)
+    return res
