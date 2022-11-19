@@ -1,6 +1,8 @@
 """
     Product-server
 """
+from enum import Enum
+
 from fastapi import FastAPI, HTTPException
 
 app = FastAPI()
@@ -14,10 +16,15 @@ fake_db = [
 ]
 
 
-@app.get("/product/category/{category_id}")
-def read_items_by_category(category_id: str) -> dict:
+class Categories(str, Enum):
+    shoes = "shoes"
+    outer = "outer"
 
-    items = list(filter(lambda x: x["category"] == category_id, fake_db))
+
+@app.get("/product/category/{category_id}")
+def read_items_by_category(category_id: Categories) -> dict:
+
+    items = list(filter(lambda x: x["category"] == Categories.value, fake_db))
 
     return items
 
