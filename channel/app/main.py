@@ -1,23 +1,31 @@
 """
     channel api
 """
+
 from fastapi import FastAPI
 
-from api.api_service import ProductApi as prod
+import app.api.api_service as api
 
 app = FastAPI()
 
-@app.get("/read/item/{prod_id}")
-def read_item(prod_id: int) -> dict:
-  """read_item
 
-  Args:
-      prod_id (int): 상품아이디
+@app.get("/read/item/{item_id}")
+def read_item(item_id: int) -> dict:
+    """read_item
 
-  Returns:
-      json: 상품정보
-  """
+      Args:
+          item_id (int): 상품아이디
 
-  prod.read_item(item_id=prod_id)
+      Returns:
+          json: 상품정보
+    """
 
-  return {"id": prod_id, "name": f"stock_{prod_id}"}
+    prod = api.Product.read_item(item_id=item_id).json()
+    stock = api.Stock.read_stock(item_id=item_id).json()
+
+    return {
+        "id": item_id,
+        "name": prod['name'],
+        "price": prod['price'],
+        "category": prod['category'],
+        "quantity": stock['quantity']}
